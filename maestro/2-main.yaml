@@ -1,0 +1,115 @@
+# The main tabs with no account: handwriting, languages, Try it, style, the free practice worksheet,
+# Saved and the sign-in options. Nothing here needs the network except /api/config (optional).
+appId: com.solyapps.scriptly
+---
+- launchApp
+# Works from a fresh install or from where flow 1 stopped.
+- extendedWaitUntil:
+    visible: "KEEP SCROLLING"
+    timeout: 90000
+    optional: true
+# The story plays as you scroll; keep scrolling until its last page offers "Continue".
+- repeat:
+    while:
+      notVisible: "Continue →"
+    times: 40
+    commands:
+      - swipe:
+          start: 50%, 82%
+          end: 50%, 18%
+          duration: 300
+- tapOn:
+    text: "Continue →"
+    optional: true
+# Setup: skip the account, the birthday and the preferences.
+- extendedWaitUntil:
+    visible: "Make Scriptly yours"
+    timeout: 20000
+    optional: true
+- tapOn:
+    text: "Skip for now"
+    optional: true
+- tapOn:
+    text: "Skip"
+    optional: true
+- tapOn:
+    text: "Skip"
+    optional: true
+- extendedWaitUntil:
+    visible: "Handwriting"
+    timeout: 30000
+    optional: true
+
+# Handwriting tab
+- tapOn:
+    text: "Handwriting"
+    optional: true
+- extendedWaitUntil:
+    visible: "Fill gaps"
+    timeout: 30000
+    optional: true
+- tapOn:
+    text: "Fill gaps"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: 06-handwriting
+
+# Languages: the drop-down
+- tapOn:
+    text: "Languages"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: ".*Hebrew.*"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: 07-languages
+
+# Try it: type a sentence and see it in the handwriting
+- openLink: scriptly://try
+- extendedWaitUntil:
+    visible: "Try it"
+    timeout: 20000
+    optional: true
+- tapOn:
+    text: "Type in English or Hebrew…"
+    optional: true
+- inputText: "Dear Grandma, thank you for the lovely card!"
+- hideKeyboard
+- waitForAnimationToEnd
+- takeScreenshot: 08-try-it
+
+# Pen, colour and style
+- openLink: scriptly://style
+- waitForAnimationToEnd
+- takeScreenshot: 09-style
+
+# The free practice worksheet, answered in handwriting (no account, no AI)
+- openLink: scriptly://homework
+- extendedWaitUntil:
+    visible: "Try the practice page"
+    timeout: 30000
+    optional: true
+- tapOn:
+    text: "Try the practice page"
+    optional: true
+- extendedWaitUntil:
+    notVisible: "Opening the practice page…"
+    timeout: 90000
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: 10-worksheet
+
+# Saved
+- openLink: scriptly://saved
+- waitForAnimationToEnd
+- takeScreenshot: 11-saved
+
+# Account: the sign-in options
+- openLink: scriptly://account
+- waitForAnimationToEnd
+- tapOn:
+    text: "Use a username and password"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: 12-account-sign-in

@@ -1,0 +1,40 @@
+# First run: the cover page, a scene of the story, and the setup screens (no account needed).
+appId: com.solyapps.scriptly
+---
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible: "KEEP SCROLLING"
+    timeout: 90000
+- waitForAnimationToEnd
+- takeScreenshot: 01-cover
+- swipe:
+    start: 50%, 82%
+    end: 50%, 30%
+    duration: 500
+- waitForAnimationToEnd
+- takeScreenshot: 02-story-write
+- repeat:
+    while:
+      notVisible: "Continue →"
+    times: 40
+    commands:
+      - swipe:
+          start: 50%, 82%
+          end: 50%, 18%
+          duration: 300
+- waitForAnimationToEnd
+- takeScreenshot: 03-story-end
+- tapOn:
+    text: "Continue →"
+    optional: true
+- extendedWaitUntil:
+    visible: "Make Scriptly yours"
+    timeout: 20000
+    optional: true
+- takeScreenshot: 04-welcome
+- tapOn:
+    text: "Use a username and password"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: 05-welcome-password
