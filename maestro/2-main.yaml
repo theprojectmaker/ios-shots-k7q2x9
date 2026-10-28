@@ -9,15 +9,19 @@ appId: com.solyapps.scriptly
     timeout: 90000
     optional: true
 # The story plays as you scroll; keep scrolling until its last page offers "Continue".
-- repeat:
-    while:
-      notVisible: "Continue →"
-    times: 40
+- runFlow:
+    when:
+      visible: "KEEP SCROLLING"
     commands:
-      - swipe:
-          start: 50%, 82%
-          end: 50%, 18%
-          duration: 300
+      - repeat:
+          while:
+            notVisible: "Continue →"
+          times: 40
+          commands:
+            - swipe:
+                start: 50%, 82%
+                end: 50%, 18%
+                duration: 300
 - tapOn:
     text: "Continue →"
     optional: true
@@ -44,9 +48,10 @@ appId: com.solyapps.scriptly
 - tapOn:
     text: "Handwriting"
     optional: true
-- extendedWaitUntil:
-    visible: "Fill gaps"
-    timeout: 30000
+- scrollUntilVisible:
+    element: "Fill gaps"
+    direction: UP
+    timeout: 60000
 - tapOn: "Fill gaps"
 - tapOn:
     text: "OK"
