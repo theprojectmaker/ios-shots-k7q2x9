@@ -40,76 +40,90 @@ appId: com.solyapps.scriptly
     timeout: 30000
     optional: true
 
-# Handwriting tab
+# Handwriting tab, with the built-in letters filled in
 - tapOn:
     text: "Handwriting"
     optional: true
 - extendedWaitUntil:
     visible: "Fill gaps"
     timeout: 30000
-    optional: true
+- tapOn: "Fill gaps"
 - tapOn:
-    text: "Fill gaps"
+    text: "OK"
     optional: true
 - waitForAnimationToEnd
 - takeScreenshot: 06-handwriting
 
-# Languages: the drop-down
-- tapOn:
-    text: "Languages"
-    optional: true
+# Languages drop-down
+- tapOn: "Languages"
 - waitForAnimationToEnd
 - tapOn:
     text: ".*Hebrew.*"
     optional: true
 - waitForAnimationToEnd
 - takeScreenshot: 07-languages
+- tapOn: "Characters"
 
-# Try it: type a sentence and see it in the handwriting
-- openLink: scriptly://try
+# More > Try it: type a sentence and see it in the handwriting
+- tapOn: "More"
+- tapOn: "Try it"
 - extendedWaitUntil:
-    visible: "Try it"
+    visible: "Type in English or Hebrew…"
     timeout: 20000
-    optional: true
-- tapOn:
-    text: "Type in English or Hebrew…"
-    optional: true
+- tapOn: "Type in English or Hebrew…"
 - inputText: "Dear Grandma, thank you for the lovely card!"
 - hideKeyboard
 - waitForAnimationToEnd
 - takeScreenshot: 08-try-it
+- tapOn: "Save page"
+- tapOn:
+    text: "OK"
+    optional: true
 
-# Pen, colour and style
-- openLink: scriptly://style
+# Style presets and sliders sit lower on the same page
+- scrollUntilVisible:
+    element: "Quick notes"
+    direction: DOWN
+- tapOn: "Cursive"
 - waitForAnimationToEnd
 - takeScreenshot: 09-style
 
-# The free practice worksheet, answered in handwriting (no account, no AI)
-- openLink: scriptly://homework
+# Back to the tabs (swipe from the left edge)
+- swipe:
+    start: 1%, 50%
+    end: 85%, 50%
+    duration: 300
+- extendedWaitUntil:
+    visible: "Fill gaps"
+    timeout: 15000
+
+# Worksheets: the free practice page, answered in handwriting
+- tapOn: "Worksheets"
 - extendedWaitUntil:
     visible: "Try the practice page"
     timeout: 30000
-    optional: true
-- tapOn:
-    text: "Try the practice page"
-    optional: true
+- takeScreenshot: 10-worksheets
+- tapOn: "Try the practice page"
 - extendedWaitUntil:
     notVisible: "Opening the practice page…"
     timeout: 90000
-    optional: true
 - waitForAnimationToEnd
-- takeScreenshot: 10-worksheet
+- takeScreenshot: 11-practice-page
+- scroll
+- waitForAnimationToEnd
+- takeScreenshot: 12-practice-answers
 
 # Saved
-- openLink: scriptly://saved
+- tapOn: "Saved"
 - waitForAnimationToEnd
-- takeScreenshot: 11-saved
+- takeScreenshot: 13-saved
 
 # Account: the sign-in options
-- openLink: scriptly://account
+- tapOn: "Account"
 - waitForAnimationToEnd
+- takeScreenshot: 14-account
 - tapOn:
     text: "Use a username and password"
     optional: true
 - waitForAnimationToEnd
-- takeScreenshot: 12-account-sign-in
+- takeScreenshot: 15-sign-in
